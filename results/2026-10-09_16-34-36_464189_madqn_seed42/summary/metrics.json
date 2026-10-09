@@ -1,0 +1,8 @@
+{
+  "algorithm": "madqn",
+  "episodes": 400,
+  "seed": 42,
+  "duration_sec": 36.077,
+  "best_training_reward": -9.37213979305479,
+  "final_training_reward": -10.97438306640683
+}

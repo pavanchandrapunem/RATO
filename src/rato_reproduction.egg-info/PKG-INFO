@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: rato-reproduction
+Version: 0.1.0
+Summary: Independent reproducible simulation of NOMA-assisted DT-MADDPG cloud-edge-end offloading
+Requires-Python: >=3.10
+License-File: LICENSE
+Requires-Dist: numpy<3,>=1.26
+Requires-Dist: PyYAML>=6
+Requires-Dist: torch>=2.1
+Requires-Dist: matplotlib>=3.7
+Requires-Dist: pytest>=7
+Requires-Dist: tqdm>=4.65
+Requires-Dist: psutil>=5.9
+Dynamic: license-file

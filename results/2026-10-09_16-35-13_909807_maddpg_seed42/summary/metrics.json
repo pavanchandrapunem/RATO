@@ -1,0 +1,8 @@
+{
+  "algorithm": "maddpg",
+  "episodes": 400,
+  "seed": 42,
+  "duration_sec": 34.708,
+  "best_training_reward": -7.896207719441254,
+  "final_training_reward": -9.605221966061675
+}

@@ -1,0 +1,1 @@
+Synthetic workloads are generated on demand and optionally saved via scripts/generate_data.py. Train/eval use deterministic seeds. Units: task_bytes (bytes), task_cycles (cycles), deadline_s (seconds), gain_power (unitless), CPU frequency in Hz.

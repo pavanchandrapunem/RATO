@@ -1,0 +1,42 @@
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Python environments
+.venv/
+venv/
+env/
+
+# Training results
+/results/*
+!/results/README.md
+
+# Synthetic datasets
+/data/generated/*
+!/data/generated/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+
+# Model checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# Archives
+*.zip
+
+# Logs
+*.log
+
+# Private environment files
+.env
+.env.*
+!.env.example
+
+# Research papers
+papers/*.pdf
+

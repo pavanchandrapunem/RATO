@@ -1,0 +1,7 @@
+numpy<3,>=1.26
+PyYAML>=6
+torch>=2.1
+matplotlib>=3.7
+pytest>=7
+tqdm>=4.65
+psutil>=5.9

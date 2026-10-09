@@ -1,0 +1,39 @@
+# AUTHOR-SPECIFIED ASSUMPTIONS: not reported numerical settings in the base paper.
+tasks:
+  size_mb_range: [30.0, 60.0]
+  cycles_per_mb_range: [50000000.0, 150000000.0]
+  deadline_s_range: [1.0, 8.0]
+  energy_budget_j_range: [5.0, 25.0]
+network:
+  ue_location_radius_m: 100.0
+  edge_edge_rate_bps: 200000000.0
+  edge_edge_link_power_w: 0.15
+  edge_cloud_link_power_w: 0.20
+  slot_duration_s: 2.0
+  authentication_latency_s: 0.005
+  authentication_energy_j: 0.002
+  digital_twin_relative_deviation_std: 0.02
+  edge_effective_capacitance: 3.0e-29
+  cloud_effective_capacitance: 1.0e-31
+  # The published edge 1e-9 value is not used as the coefficient of f^2 in SI units;
+  # that would make energy astronomically large. See docs/assumptions.md.
+objectives:
+  deadline_penalty_coefficient: 3.0
+  balance_penalty_coefficient: 1.0
+  overload_penalty_coefficient: 3.0
+  capacity_failure_threshold: 1.2
+  reward_scale: 1.0
+  weight_rule: inverse_normalized_tolerance
+  use_normalized_energy: true
+  # Published QoS formula is reported separately as a metric, not the reward.
+rl:
+  actor_hidden: [64, 64]
+  critic_hidden: [128, 128]
+  actor_learning_rate: 0.0001
+  critic_learning_rate: 0.001
+  gaussian_noise_std: 0.10
+  dqn_levels: 17
+  gradient_steps_per_episode: 1
+  min_buffer_size: 64
+  grad_clip_norm: 10.0
+  # Online training is once per episode to parallel published Algorithm 1.

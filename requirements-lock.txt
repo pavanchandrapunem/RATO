@@ -1,0 +1,3 @@
+# Generate a machine-specific lockfile after installation:
+# python -m pip freeze > requirements-lock.txt
+# No lockfile is invented in advance.

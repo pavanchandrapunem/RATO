@@ -1,0 +1,8 @@
+seed: 42
+mode: full
+access_method: noma
+power_policy: learned
+force_task_size_mb: null
+max_steps: 12
+use_digital_twin: true
+load_balance_penalty: true

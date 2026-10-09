@@ -1,0 +1,8 @@
+{
+  "algorithm": "ddpg",
+  "episodes": 400,
+  "seed": 42,
+  "duration_sec": 9.497,
+  "best_training_reward": -7.93186872397753,
+  "final_training_reward": -9.589948085180898
+}

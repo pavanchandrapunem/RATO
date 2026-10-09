@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rato-reproduction"
+version = "0.1.0"
+description = "Independent reproducible simulation of NOMA-assisted DT-MADDPG cloud-edge-end offloading"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26,<3", "PyYAML>=6", "torch>=2.1", "matplotlib>=3.7", "pytest>=7", "tqdm>=4.65", "psutil>=5.9"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

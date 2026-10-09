@@ -1,0 +1,28 @@
+# Explicit assumptions and ambiguities — READ BEFORE EXPERIMENTS
+
+This is **not** the authors' released source code. Original numeric parameters come from `configs/paper_parameters.yaml`, taken from paper Sec. V-A and Table II. Everything in `configs/implementation_assumptions.yaml` is a disclosed independent assumption.
+
+## Numerical parameters omitted from the paper
+
+1. Task sizes for learning are drawn uniformly 30–60 MB; cycles/MB 50–150 million; deadlines 1–8 s and energy budgets 5–25 J. These distributions are not specified in the paper. Figures 8–10 evaluate 30,40,50,60 MB task-size scenarios.
+2. Edge–edge link 200 Mbps, radio/link communication energy coefficients, authentication costs and slot duration are assumed; the paper specifies only edge–cloud data rate 100 Mbps.
+3. UE nominal CPU 0.1–2.5 GHz and edge nominal CPU 5–12 GHz follow paper; the DT's relative frequency mismatch is sampled N(0,0.02), an assumption. In `no_dt_deviation` it is zero.
+4. Network locations use uniform radial coverage; association is simulated randomly, with at least one UE per ES when possible.
+5. Actor layers [64,64], Critic layers [128,128], actor LR 1e-4, critic LR 1e-3 and exploration sigma 0.1 are chosen here. Episodes=400, steps=12, one batch update per episode, epsilon decay once per episode are choices, not stated comprehensively in the article. Paper Table II values of tau=.0003, batch=64, gamma=.99, buffer=10000, epsilon=(1,.1,.99) are used by default.
+6. Fig. 7's prose says training can take 120–400 episodes but its plotted horizontal axis extends to approximately 100, a discrepancy in the paper. We do not force convergence to either figure.
+7. The state vector is a normalized combination of each UE task, weights, frequency, channel, associated edge, all edges' estimated frequencies/deviations/utilizations, cloud estimated frequency/deviation and cluster allocations. The paper names state features, but not their exact ordering and normalization.
+8. A hard destination is obtained from the actor's 3-way Softmax (local ES, collaborative ES, cloud), and separate Softmax picks the collaborating ES. Straight-through hardening is not specified, so policy gradients act through the actor's soft probabilities whereas the environment executes argmax. For the paper's lambda_k per cluster, UE bids are aggregated by mean for each associated ES, normalized to sum 1. This is an implementation decision.
+9. Equation (14) is implemented as power proportional to each UE's channel power gain inside the ES cluster. It uses p_k as the signal power, as published. Whether p_k denotes per UE or per cluster actual physical transmit power is ambiguous.
+10. The OMA baseline uses an equal 1/I bandwidth split per ES and unchanged p_k in each orthogonal channel; the paper does not detail the OMA power/bandwidth convention. Thus a NOMA advantage is not guaranteed under every fairness convention.
+11. Data D_m is measured in bytes in our simulation, converted to bits before dividing by rates in bit/s (Eq. 10–16).
+12. Equation (30) appears to insert the cloud *execution* energy in transmission energy, unlike Eq. (17). We use Eq. (17) for the cloud-link transmit energy to avoid double-counting execution energy.
+13. The reported edge coefficient 1e-9 is described as energy per CPU cycle, yet Equation (21) multiplies the coefficient by frequency squared in SI Hz: literal substitution yields unphysical giant Joule values. We preserve 1e-9 as metadata but assume switched capacitance 3e-29 for edge; cloud 1e-31, both explicitly non-paper settings. This is not an exact Eq. 21 numeric reproduction.
+14. Reward Eq. 36 signs of eta_balance/eta_over and Eq. 38 variance aggregation are underdetermined. We implement a negative penalty based on mean-squared utilization deviation across ESs plus overload-count penalty and late-task penalty. Values are configurable and should not be presented as paper-defined.
+15. The paper describes 120% of *remaining computation capacity* for offload failure but calls the threshold data volume, a unit mismatch. We implement a 1.2 capacity-ratio threshold in cycles. Task success also requires its deadline and authorization.
+16. The paper's Eq. (47) QoS is `(T/E)/(Tmax/Emax)`; we report it literally and separately from success. Higher does not automatically mean better deadline satisfaction.
+17. Fig. 6 restricted schemes implemented by changing destinations at evaluation; independent training with restricted mode is also possible via the CLI and will yield different results. `maddpg` disables DT and balancing when launched with that name.
+18. Network communication is fully simulated and authentication uses trusted-identity + latency/energy costs, **not real cryptographic certificates**. Security verification requires a separate, specified protocol implementation.
+19. D3QN and MADQN use a factored multi-head 17-level Q-function for gamma, power, route and collaborative ES. This avoids an intractable Cartesian joint action space. The article mentions 17 levels for splitting and power but does not provide action encoding or centralized-vs-factorized Q details. Such baseline results therefore rely on this explicit approximation.
+20. Training checkpoints save online/target networks, optimizers, replay items and sampler state. A resumed training run does not currently preserve *every* RNG state; exact bitwise continuation is not claimed.
+
+**Scientific rule:** Keep these assumption choices visible. Do not label synthetic simulator performance as experimental proof of the published percentage improvements unless the metrics, protocol and repeated seeds support that claim.

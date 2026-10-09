@@ -1,0 +1,8 @@
+{
+  "algorithm": "d3qn",
+  "episodes": 400,
+  "seed": 42,
+  "duration_sec": 13.334,
+  "best_training_reward": -10.165282915565598,
+  "final_training_reward": -10.521438160898217
+}

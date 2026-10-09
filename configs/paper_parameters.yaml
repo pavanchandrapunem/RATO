@@ -1,0 +1,26 @@
+# Numbers explicitly provided by Hu et al., IEEE TGCN (2026), DOI 10.1109/TGCN.2026.3653056
+network:
+  num_ues: 20
+  num_edge_servers: 5
+  num_cloud_servers: 1
+communication:
+  bandwidth_hz: 20000000.0
+  total_power_w: 10.0
+  channel_gain_db_min: -20.0
+  channel_gain_db_max: -14.0
+  noise_power_w: 2.0e-12
+  edge_cloud_rate_bps: 100000000.0
+computation:
+  ue_freq_ghz: [0.1, 2.5]
+  edge_freq_ghz: [5.0, 12.0]
+  cloud_freq_ghz: 100.0
+  ue_switched_capacitance: 1.0e-27
+  edge_energy_coefficient_reported: 1.0e-9
+reinforcement_learning:
+  batch_size: 64
+  replay_capacity: 10000
+  discount_factor: 0.99
+  soft_update_tau: 0.0003
+  epsilon_start: 1.0
+  epsilon_end: 0.1
+  epsilon_decay: 0.99

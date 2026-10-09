@@ -1,0 +1,93 @@
+paper:
+  network:
+    num_ues: 20
+    num_edge_servers: 5
+    num_cloud_servers: 1
+  communication:
+    bandwidth_hz: 20000000.0
+    total_power_w: 10.0
+    channel_gain_db_min: -20.0
+    channel_gain_db_max: -14.0
+    noise_power_w: 2.0e-12
+    edge_cloud_rate_bps: 100000000.0
+  computation:
+    ue_freq_ghz:
+    - 0.1
+    - 2.5
+    edge_freq_ghz:
+    - 5.0
+    - 12.0
+    cloud_freq_ghz: 100.0
+    ue_switched_capacitance: 1.0e-27
+    edge_energy_coefficient_reported: 1.0e-09
+  reinforcement_learning:
+    batch_size: 64
+    replay_capacity: 10000
+    discount_factor: 0.99
+    soft_update_tau: 0.0003
+    epsilon_start: 1.0
+    epsilon_end: 0.1
+    epsilon_decay: 0.99
+assumptions:
+  tasks:
+    size_mb_range:
+    - 30.0
+    - 60.0
+    cycles_per_mb_range:
+    - 50000000.0
+    - 150000000.0
+    deadline_s_range:
+    - 1.0
+    - 8.0
+    energy_budget_j_range:
+    - 5.0
+    - 25.0
+  network:
+    ue_location_radius_m: 100.0
+    edge_edge_rate_bps: 200000000.0
+    edge_edge_link_power_w: 0.15
+    edge_cloud_link_power_w: 0.2
+    slot_duration_s: 2.0
+    authentication_latency_s: 0.005
+    authentication_energy_j: 0.002
+    digital_twin_relative_deviation_std: 0.02
+    edge_effective_capacitance: 3.0e-29
+    cloud_effective_capacitance: 1.0e-31
+  objectives:
+    deadline_penalty_coefficient: 3.0
+    balance_penalty_coefficient: 1.0
+    overload_penalty_coefficient: 3.0
+    capacity_failure_threshold: 1.2
+    reward_scale: 1.0
+    weight_rule: inverse_normalized_tolerance
+    use_normalized_energy: true
+  rl:
+    actor_hidden:
+    - 64
+    - 64
+    critic_hidden:
+    - 128
+    - 128
+    actor_learning_rate: 0.0001
+    critic_learning_rate: 0.001
+    gaussian_noise_std: 0.1
+    dqn_levels: 17
+    gradient_steps_per_episode: 1
+    min_buffer_size: 64
+    grad_clip_norm: 10.0
+environment:
+  seed: 42
+  mode: full
+  access_method: noma
+  power_policy: learned
+  force_task_size_mb: null
+  max_steps: 12
+  use_digital_twin: false
+  load_balance_penalty: false
+training:
+  episodes: 400
+  max_steps: 12
+  seed: 42
+  log_interval: 10
+  save_every: 25
+  device: auto

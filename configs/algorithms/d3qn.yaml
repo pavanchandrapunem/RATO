@@ -1,0 +1,2 @@
+algorithm: d3qn
+# Other settings inherit configs/paper_parameters.yaml and configs/implementation_assumptions.yaml

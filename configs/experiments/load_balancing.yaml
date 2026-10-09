@@ -1,0 +1,3 @@
+experiment: load_balancing
+seeds: [0, 1, 2, 3, 4]
+task_sizes_mb: [30, 40, 50, 60]

@@ -1,0 +1,7 @@
+numpy==1.26.4
+PyYAML==6.0.1
+matplotlib==3.8.2
+pytest==7.4.4
+tqdm==4.66.2
+psutil==5.9.8
+# Install CUDA-enabled torch separately as documented in README.
